@@ -1,9 +1,9 @@
 # sample-code-ios
 ## PayGate Sample Code iOS BETA
 
-**The below example code and testing interface has been provided.**
+The below example code and testing interface has been provided.
 
-To Do:
+### To Do:
 - Video walkthrough
 
 ## PayHost
