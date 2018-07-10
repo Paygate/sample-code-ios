@@ -5,6 +5,7 @@ The below example code and testing interface has been provided.
 
 ### To Do:
 - Video walkthrough
+- Link to sample App on App Store
 
 ## PayHost
 
