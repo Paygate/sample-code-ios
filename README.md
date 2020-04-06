@@ -3,7 +3,8 @@
 
 The below example code and testing interface has been provided.
 
-### Installation
+## Installation
+[![PayGate Sample Code for iOS](https://www.appinlet.com/wp-content/uploads/2020/04/PayGate-Sample-Code-for-iOS-scaled.jpg)](https://www.youtube.com/watch?v=oiZoxzJayQY "PayGate Sample Code for iOS")
 
 To generate the needed dependencies, run the following from your project directory:
 
