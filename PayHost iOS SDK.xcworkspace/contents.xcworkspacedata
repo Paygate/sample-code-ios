@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/RBAtkins0n/Sites/PayGateSampleCodeiOS/PayHost iOS SDK.xcodeproj">
+      location = "group:PayHost iOS SDK.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

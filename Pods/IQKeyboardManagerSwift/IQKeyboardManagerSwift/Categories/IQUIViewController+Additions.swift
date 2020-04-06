@@ -32,7 +32,7 @@ public extension UIViewController {
     /**
     To set customized distance from keyboard for textField/textView. Can't be less than zero
     */
-    @IBOutlet public var IQLayoutGuideConstraint: NSLayoutConstraint? {
+    @IBOutlet var IQLayoutGuideConstraint: NSLayoutConstraint? {
         get {
             
             return objc_getAssociatedObject(self, &kIQLayoutGuideConstraint) as? NSLayoutConstraint

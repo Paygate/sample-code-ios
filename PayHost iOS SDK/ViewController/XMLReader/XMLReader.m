@@ -12,8 +12,8 @@
 #error "XMLReader requires ARC support."
 #endif
 
-NSString *const kXMLReaderTextNodeKey		= @"text";
-NSString *const kXMLReaderAttributePrefix	= @"@";
+NSString *const kXMLReaderTextNodeKey        = @"text";
+NSString *const kXMLReaderAttributePrefix    = @"@";
 
 @interface XMLReader ()
 
@@ -59,7 +59,7 @@ NSString *const kXMLReaderAttributePrefix	= @"@";
 
 - (id)initWithError:(NSError **)error
 {
-	self = [super init];
+    self = [super init];
     if (self)
     {
         self.errorPointer = *error;
@@ -85,7 +85,7 @@ NSString *const kXMLReaderAttributePrefix	= @"@";
     
     parser.delegate = self;
     BOOL success = [parser parse];
-	
+    
     // Return the stack's root dictionary on success
     if (success)
     {
@@ -100,7 +100,7 @@ NSString *const kXMLReaderAttributePrefix	= @"@";
 #pragma mark -  NSXMLParserDelegate methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
-{   
+{
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [self.dictionaryStack lastObject];
 

@@ -18,7 +18,7 @@ private let messageLabelMinWidth = CGFloat(120)
 
 extension KRProgressHUD {
     func configureProgressHUDView() {
-        window.windowLevel = UIWindowLevelNormal
+        window.windowLevel = .normal
         hudViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
         hudView.backgroundColor = .white
@@ -30,7 +30,6 @@ extension KRProgressHUD {
         iconView.translatesAutoresizingMaskIntoConstraints = false
 
         activityIndicatorView.frame.size = iconViewSize
-        activityIndicatorView.isLarge = true
         activityIndicatorView.animating = false
         activityIndicatorView.hidesWhenStopped = true
 
@@ -73,8 +72,8 @@ extension KRProgressHUD {
               imageSize: CGSize? = nil,
               isOnlyText: Bool = false,
               isLoading: Bool = false,
-              completion: CompletionHandler? = nil ) {
-        DispatchQueue.main.async {
+              completion: CompletionHandler? = nil) {
+        DispatchQueue.main.async { [unowned self] in
             self.applyStyles()
             self.updateLayouts(message: message, iconType: iconType, image: image, imageSize: imageSize, isOnlyText: isOnlyText)
 
@@ -88,7 +87,7 @@ extension KRProgressHUD {
     }
 
     func dismiss(completion: CompletionHandler?) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.fadeOutView(completion: completion)
         }
     }
@@ -99,28 +98,28 @@ extension KRProgressHUD {
 extension KRProgressHUD {
     func setUpConstraints() {
         hudViewCenterYConstraint = NSLayoutConstraint(item: hudView, attribute: .centerY, toItem: hudViewController.view, constant: viewOffset ?? viewAppearance.viewOffset)
-        hudViewSideMarginConstraints.append(contentsOf: [
+        hudViewSideMarginConstraints += [
             NSLayoutConstraint(item: hudView, attribute: .left, relatedBy: .greaterThanOrEqual, toItem: hudViewController.view, constant: hudViewMargin),
             NSLayoutConstraint(item: hudView, attribute: .right, relatedBy: .lessThanOrEqual, toItem: hudViewController.view, constant: -hudViewMargin)
-        ])
+        ]
 
-        iconViewConstraints.append(contentsOf: [
+        iconViewConstraints += [
             NSLayoutConstraint(item: iconView, attribute: .top, toItem: hudView, constant: hudViewPadding),
             NSLayoutConstraint(item: iconView, attribute: .centerX, toItem: hudView),
             NSLayoutConstraint(item: iconView, attribute: .left, relatedBy: .greaterThanOrEqual, toItem: hudView, constant: hudViewPadding),
             NSLayoutConstraint(item: iconView, attribute: .right, relatedBy: .lessThanOrEqual, toItem: hudView, constant: -hudViewPadding),
             NSLayoutConstraint(item: iconView, attribute: .bottom, relatedBy: .lessThanOrEqual, toItem: hudView, constant: -hudViewPadding)
-        ])
+        ]
 
         messageLabelMinWidthConstraint = NSLayoutConstraint(item: messageLabel, attribute: .width, relatedBy: .greaterThanOrEqual, constant: messageLabelMinWidth)
-        messageLabelConstraints.append(contentsOf: [
+        messageLabelConstraints += [
             messageLabelMinWidthConstraint,
             NSLayoutConstraint(item: messageLabel, attribute: .top, toItem: iconView, attribute: .bottom, constant: messageLabelTopMargin),
             NSLayoutConstraint(item: messageLabel, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: hudView, constant: hudViewPadding),
             NSLayoutConstraint(item: messageLabel, attribute: .left, toItem: hudView, constant: hudViewPadding),
             NSLayoutConstraint(item: messageLabel, attribute: .right, toItem: hudView, constant: -hudViewPadding),
             NSLayoutConstraint(item: messageLabel, attribute: .bottom, toItem: hudView, constant: -hudViewPadding)
-        ])
+        ]
 
         hudViewController.view.addConstraints([
             NSLayoutConstraint(item: hudView, attribute: .centerX, toItem: hudViewController.view),
@@ -141,12 +140,12 @@ extension KRProgressHUD {
     }
 
     func registerDismissHandler() {
-        dismissHandler = DispatchWorkItem {
+        dismissHandler = DispatchWorkItem { [unowned self] in
             KRProgressHUD.dismiss()
             _ = self.cancelCurrentDismissHandler()
         }
-        let deadline = DispatchTime.now() + (deadlineTime ?? viewAppearance.deadlineTime)
-        DispatchQueue.global().asyncAfter(deadline: deadline, execute: dismissHandler!)
+        let duration = DispatchTime.now() + (self.duration ?? viewAppearance.duration)
+        DispatchQueue.global().asyncAfter(deadline: duration, execute: dismissHandler!)
     }
 
     func fadeInView(completion: CompletionHandler?) {
@@ -155,16 +154,25 @@ extension KRProgressHUD {
         } else {
             hudViewController.view.alpha = 0
             if let presentingVC = presentingViewController {
+                window.rootViewController = nil
+                presentingVC.addChild(hudViewController)
                 presentingVC.view.addSubview(hudViewController.view)
                 setConstraintsToPresentingVC()
+                presentingVC.didMove(toParent: hudViewController)
             } else {
-                appWindow = UIApplication.shared.keyWindow
+                if #available(iOS 13.0, *) {
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        window.windowScene = windowScene
+                    } else {
+                        print("UIWindowScene not found")
+                    }
+                }
                 window.makeKeyAndVisible()
             }
         }
 
         KRProgressHUD.isVisible = true
-        UIView.animate(withDuration: fadeTime, animations: {
+        UIView.animate(withDuration: fadeTime, animations: { [unowned self] in
             self.hudView.alpha = 1
             self.hudViewController.view.alpha = 1
         }, completion: { _ in
@@ -173,14 +181,17 @@ extension KRProgressHUD {
     }
 
     func fadeOutView(completion: CompletionHandler?) {
-        UIView.animate(withDuration: fadeTime, animations: {
+        UIView.animate(withDuration: fadeTime, animations: { [unowned self] in
             self.hudViewController.view.alpha = 0
-        }, completion: { _ in
-            self.appWindow?.makeKeyAndVisible()
-            self.appWindow = nil
+        }, completion: { [unowned self] _ in
             self.window.isHidden = true
-            self.hudViewController.view.removeFromSuperview()
-            self.presentingViewController = nil
+            if self.presentingViewController != nil {
+                self.hudViewController.willMove(toParent: nil)
+                self.hudViewController.view.removeFromSuperview()
+                self.hudViewController.removeFromParent()
+                self.presentingViewController = nil
+                self.window.rootViewController = self.hudViewController
+            }
             self.activityIndicatorView.stopAnimating()
             KRProgressHUD.isVisible = false
             completion?()
@@ -192,7 +203,7 @@ extension KRProgressHUD {
         messageLabel.textColor = style?.textColor ?? viewAppearance.style.textColor
         iconDrawingLayer.fillColor = style?.iconColor?.cgColor ?? viewAppearance.style.iconColor?.cgColor
         hudViewController.view.backgroundColor = maskType?.maskColor ?? viewAppearance.maskType.maskColor
-        activityIndicatorView.style = activityIndicatorStyle ?? viewAppearance.activityIndicatorStyle
+        activityIndicatorView.colors = activityIndicatorColors ?? viewAppearance.activityIndicatorColors
         messageLabel.font = font ?? viewAppearance.font
     }
 
@@ -247,10 +258,10 @@ extension KRProgressHUD {
     func setConstraintsToPresentingVC() {
         guard let view = presentingViewController?.view, view == hudViewController.view.superview else { return }
         view.addConstraints([
-            NSLayoutConstraint(item: hudViewController.view, attribute: .top, toItem: view),
-            NSLayoutConstraint(item: hudViewController.view, attribute: .bottom, toItem: view),
-            NSLayoutConstraint(item: hudViewController.view, attribute: .left, toItem: view),
-            NSLayoutConstraint(item: hudViewController.view, attribute: .right, toItem: view)
+            NSLayoutConstraint(item: hudViewController.view!, attribute: .top, toItem: view),
+            NSLayoutConstraint(item: hudViewController.view!, attribute: .bottom, toItem: view),
+            NSLayoutConstraint(item: hudViewController.view!, attribute: .left, toItem: view),
+            NSLayoutConstraint(item: hudViewController.view!, attribute: .right, toItem: view)
         ])
     }
 }

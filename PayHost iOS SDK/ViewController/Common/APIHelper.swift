@@ -254,7 +254,7 @@ struct CustomerDetailXML: Mappable {
         </ns:Customer>
         """
         
-        print(soapStr)
+        print(soapStr as Any)
     }
 }
 

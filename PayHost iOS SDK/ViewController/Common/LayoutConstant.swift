@@ -7,7 +7,7 @@
 //  Developer: App Inlet (Pty) Ltd
 //  Developer URI: https://www.appinlet.com/
 //
-//  Copyright: © 2018 PayGate (Pty) Ltd.
+//  Copyright: © 2020 PayGate (Pty) Ltd.
 //  License: GNU General Public License v3.0
 //  License URI: http://www.gnu.org/licenses/gpl-3.0.html
 //
@@ -23,7 +23,7 @@ struct SetLayout {
     }
     func textFiledWithPlaceholderColor(textfiled:UITextField,_ placeholderString:String){
         textfiled.attributedPlaceholder = NSAttributedString(string: placeholderString,
-                                                             attributes: [NSAttributedStringKey.foregroundColor: AppColor.placeholderColor])
+                                                             attributes: [NSAttributedString.Key.foregroundColor: AppColor.placeholderColor])
     }
 }
 extension UITextField {
@@ -93,7 +93,6 @@ class CornerView:UIView{
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = true
     }
-    
 }
 
 class UIPlaceHolderTextView: UITextView {
@@ -119,12 +118,9 @@ class UIPlaceHolderTextView: UITextView {
         if self.placeholderColor == nil {
             self.placeholderColor = UIColor.black
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(textChanged(_:)), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(textChanged(_:)), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: nil)
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(textChanged(_:)), name: UITextView.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textChanged(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
     }
-    
     
     @objc func textChanged(_ notification: Notification) -> Void {
         if self.placeholder?.count == 0 {
@@ -167,7 +163,7 @@ class UIPlaceHolderTextView: UITextView {
             
             placeholderLabel?.text = self.placeholder
             placeholderLabel?.sizeToFit()
-            self.sendSubview(toBack: self.placeholderLabel!)
+            self.sendSubviewToBack(self.placeholderLabel!)
         }
         
         if self.text.count == 0 && (self.placeholder?.count ?? 0) > 0 {

@@ -14,35 +14,47 @@
 
 import UIKit
 import KRProgressHUD
-class WebViewController: UIViewController {
-    
-    @IBOutlet weak var webview: UIWebView!
+import WebKit
+
+class WebViewController: UIViewController, WKNavigationDelegate,WKUIDelegate, UIScrollViewDelegate {
+    @IBOutlet weak var webView: WKWebView!
     var PassToDic = [String:String]()
     var webStr = String()
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.configuration.userContentController.addUserScript(self.getZoomDisableScript())
         self.setWebView()
-        
-        // Do any additional setup after loading the view.
     }
+    //Disable zoom webview
+    private func getZoomDisableScript() -> WKUserScript {
+        let source: String = "var meta = document.createElement('meta');" +
+            "meta.name = 'viewport';" +
+            "meta.content = 'width=device-width, initial-scale=1.0, maximum- scale=1.0, user-scalable=no';" +
+            "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);"
+        return WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+    }
+    
     //MARK:----------------------------Set WebView With parms ------------------------
     func setWebView(){
         
         
         var request = URLRequest(url: URL(string: PassToDic["url"]!)!)
         request.httpMethod = "POST"
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let body = "PAYGATE_ID=\(PassToDic["payGate_id"]!)&REFERENCE=\(PassToDic["ref_id"]!)&CHECKSUM=\(PassToDic["chaeksum_id"]!)&PAY_REQUEST_ID=\(PassToDic["pay_requ_id"]!)"
         request.httpBody = body.data(using: .utf8)
-        
+ 
         let task = URLSession.shared.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
             if data != nil
             {
                 
                 if String(data: data!, encoding: .utf8) != nil
                 {
-                    let strData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    _ = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
                     DispatchQueue.main.sync {
-                        self.webview.loadRequest(request as URLRequest)
+                        self.webView.load(request as URLRequest)
+                        self.webView.allowsBackForwardNavigationGestures = false
+                        
                     }
                 }
             }
@@ -50,23 +62,6 @@ class WebViewController: UIViewController {
         task.resume()
         
     }
-    
-    
 }
 
-extension WebViewController:UIWebViewDelegate{
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        print(error)
-    }
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        KRProgressHUD.show()
-    }
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        let resp: CachedURLResponse? = URLCache.shared.cachedResponse(for: webview.request!)
-        if let aFields = (resp?.response as? HTTPURLResponse)?.allHeaderFields {
-            print("\(aFields)")
-        }
-        KRProgressHUD.dismiss()
-    }
-}
+

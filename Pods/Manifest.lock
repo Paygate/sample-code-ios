@@ -1,9 +1,9 @@
 PODS:
   - IQKeyboardManagerSwift (5.0.0)
-  - KRActivityIndicatorView (2.1.2)
-  - KRProgressHUD (3.2.2):
-    - KRActivityIndicatorView (= 2.1.2)
-  - ObjectMapper (3.2.0)
+  - KRActivityIndicatorView (3.0.5)
+  - KRProgressHUD (3.4.5):
+    - KRActivityIndicatorView (= 3.0.5)
+  - ObjectMapper (3.5.2)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift (= 5.0.0)
@@ -11,7 +11,7 @@ DEPENDENCIES:
   - ObjectMapper
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - IQKeyboardManagerSwift
     - KRActivityIndicatorView
     - KRProgressHUD
@@ -19,10 +19,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 3f340202ebe1a7076279b9b9b3c817243ddb3aab
-  KRActivityIndicatorView: 27e7a7e3da7fbc8e5405fbc4088b51cc2095a410
-  KRProgressHUD: 8872da74b1c462e15c82a8fff250a2d34ee82ea2
-  ObjectMapper: 5cccd2de6f253eda859df8116a5a554d9769e859
+  KRActivityIndicatorView: 912bc0413d98340f384b12a4e1e6aa8f42fb377d
+  KRProgressHUD: df4cdc3a1baf708d4276a089ee34d133fa9a6f3e
+  ObjectMapper: b53ae947d370bf89423e86be7d4e2d2b2a8d3f40
 
-PODFILE CHECKSUM: a777a930741455b0deb13042216c45682628f655
+PODFILE CHECKSUM: 5d4760e8fc964c66d5a4953e6daed7093a79e9db
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.1

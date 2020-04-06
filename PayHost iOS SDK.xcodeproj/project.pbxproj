@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3B1B929AB6C431C85227832A /* Pods_PayHost_iOS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C108251C28E887519EFE051D /* Pods_PayHost_iOS_SDK.framework */; };
+		40CE8A4D243333060025D68B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CE8A4C243333060025D68B /* WebKit.framework */; };
 		7937ECA020DB9E5100F2AF11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937EC9F20DB9E5100F2AF11 /* AppDelegate.swift */; };
 		7937ECA520DB9E5100F2AF11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7937ECA320DB9E5100F2AF11 /* Main.storyboard */; };
 		7937ECA720DB9E5A00F2AF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7937ECA620DB9E5A00F2AF11 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		388DE73EB5D04022B4E94C99 /* Pods-PayHost iOS SDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PayHost iOS SDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PayHost iOS SDK/Pods-PayHost iOS SDK.debug.xcconfig"; sourceTree = "<group>"; };
+		40CE8A4C243333060025D68B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7937EC9C20DB9E5100F2AF11 /* PayHost iOS SDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PayHost iOS SDK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7937EC9F20DB9E5100F2AF11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7937ECA420DB9E5100F2AF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40CE8A4D243333060025D68B /* WebKit.framework in Frameworks */,
 				3B1B929AB6C431C85227832A /* Pods_PayHost_iOS_SDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +297,7 @@
 		AE0FBD6253DF18522EFF575F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40CE8A4C243333060025D68B /* WebKit.framework */,
 				799E1A3920DCEBFA00CE711B /* SwiftLazy.framework */,
 				799E1A3720DCEBF500CE711B /* DITranquillity.framework */,
 				C108251C28E887519EFE051D /* Pods_PayHost_iOS_SDK.framework */,
@@ -371,13 +375,16 @@
 				TargetAttributes = {
 					7937EC9B20DB9E5100F2AF11 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 					};
 					7937ECAF20DB9E5B00F2AF11 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 						TestTargetID = 7937EC9B20DB9E5100F2AF11;
 					};
 					7937ECBA20DB9E5B00F2AF11 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 						TestTargetID = 7937EC9B20DB9E5100F2AF11;
 					};
 				};
@@ -437,23 +444,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PayHost iOS SDK/Pods-PayHost iOS SDK-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PayHost iOS SDK/Pods-PayHost iOS SDK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PayHost iOS SDK/Pods-PayHost iOS SDK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PayHost iOS SDK/Pods-PayHost iOS SDK-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PayHost iOS SDK/Pods-PayHost iOS SDK-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E1BCBD99B7C03F3FCEB3F435 /* [CP] Check Pods Manifest.lock */ = {
@@ -604,7 +604,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -658,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -675,7 +675,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 58CQ68X4QT;
 				INFOPLIST_FILE = "PayHost iOS SDK/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -683,7 +683,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.appinlet.payhost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PayHost iOS SDK/Resources/PayHost_iOS_SDK-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -696,7 +696,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 58CQ68X4QT;
 				INFOPLIST_FILE = "PayHost iOS SDK/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -704,7 +704,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.appinlet.payhost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PayHost iOS SDK/Resources/PayHost_iOS_SDK-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -723,7 +723,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.icanstdioz.test.PayHost-iOS-SDKTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PayHost iOS SDK.app/PayHost iOS SDK";
 			};
@@ -743,7 +743,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.icanstdioz.test.PayHost-iOS-SDKTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PayHost iOS SDK.app/PayHost iOS SDK";
 			};
@@ -762,7 +762,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.icanstdioz.test.PayHost-iOS-SDKUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "PayHost iOS SDK";
 			};
@@ -781,7 +781,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.icanstdioz.test.PayHost-iOS-SDKUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "PayHost iOS SDK";
 			};
