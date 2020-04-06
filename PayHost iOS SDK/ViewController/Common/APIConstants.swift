@@ -7,7 +7,7 @@
 //  Developer: App Inlet (Pty) Ltd
 //  Developer URI: https://www.appinlet.com/
 //
-//  Copyright: © 2018 PayGate (Pty) Ltd.
+//  Copyright: © 2020 PayGate (Pty) Ltd.
 //  License: GNU General Public License v3.0
 //  License URI: http://www.gnu.org/licenses/gpl-3.0.html
 //

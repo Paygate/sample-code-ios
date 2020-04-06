@@ -36,7 +36,7 @@ public extension UIView {
     /**
     Returns the UIViewController object that manages the receiver.
     */
-    public func viewController()->UIViewController? {
+    func viewController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
         
@@ -55,7 +55,7 @@ public extension UIView {
     /**
     Returns the topMost UIViewController object in hierarchy.
     */
-    public func topMostController()->UIViewController? {
+    func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]()
 
@@ -94,7 +94,7 @@ public extension UIView {
     /**
     Returns the superView of provided class type.
     */
-    public func superviewOfClassType(_ classType:UIView.Type)->UIView? {
+    func superviewOfClassType(_ classType:UIView.Type)->UIView? {
 
         var superView = superview
         
@@ -130,7 +130,7 @@ public extension UIView {
     /**
     Returns all siblings of the receiver which canBecomeFirstResponder.
     */
-    public func responderSiblings()->[UIView] {
+    func responderSiblings()->[UIView] {
 
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
@@ -152,7 +152,7 @@ public extension UIView {
     /**
     Returns all deep subViews of the receiver which canBecomeFirstResponder.
     */
-    public func deepResponderViews()->[UIView] {
+    func deepResponderViews()->[UIView] {
         
         //Array of (UITextField/UITextView's).
         var textfields = [UIView]()
@@ -216,7 +216,7 @@ public extension UIView {
     /**
     Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
     */
-    public func isSearchBarTextField()-> Bool {
+    func isSearchBarTextField()-> Bool {
         
         var searchBar : UIResponder? = self.next
         
@@ -240,7 +240,7 @@ public extension UIView {
     /**
     Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
     */
-    public func isAlertViewTextField()->Bool {
+    func isAlertViewTextField()->Bool {
         
         var alertViewController : UIResponder? = self.viewController()
         
@@ -267,7 +267,7 @@ public extension UIView {
     /**
     Returns current view transform with respect to the 'toView'.
     */
-    public func convertTransformToView(_ toView:UIView?)->CGAffineTransform {
+    func convertTransformToView(_ toView:UIView?)->CGAffineTransform {
         
         var newView = toView
         

@@ -16,13 +16,56 @@ import UIKit
 
 class MenuViewController: UIViewController {
     @IBOutlet weak var menutableview: UITableView!
+    @IBOutlet weak var bottonView: UIView!
     
     var menuName = ["Card Vault","Delete Vault","Lookup Vault"]
     var followUpReq = ["Query","Void","Refund","Settlement"]
     var SectionArray = ["Single Vault Request","Follow Up Request","Message types Request"]
     var menuName2 = ["Card Payment","Web Payment","Token Payment"]
+    override func viewWillAppear(_ animated: Bool)
+    {
+        if #available(iOS 12.0, *) {
+            switch UIScreen.main.traitCollection.userInterfaceStyle {
+            case .dark: // put your dark mode code here
+                self.view.backgroundColor = .black
+                self.menutableview.backgroundColor = .black
+                self.bottonView.backgroundColor = .black
+                
+            case .light:
+                self.view.backgroundColor = .white
+                self.menutableview.backgroundColor = .white
+                self.bottonView.backgroundColor = .white
+                
+                
+                
+            case .unspecified: break
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 12.0, *) {
+            switch UIScreen.main.traitCollection.userInterfaceStyle {
+            case .dark: // put your dark mode code here
+                self.view.backgroundColor = .black
+                self.menutableview.backgroundColor = .black
+                self.bottonView.backgroundColor = .black
+                
+            case .light:
+                self.view.backgroundColor = .white
+                self.menutableview.backgroundColor = .white
+                self.bottonView.backgroundColor = .white
+            case .unspecified: break
+            @unknown default:
+                break
+            }
+        }
+        
         
         let nibName = UINib(nibName: "HeaderMenuCell", bundle: nil)
         self.menutableview.register(nibName, forHeaderFooterViewReuseIdentifier: "headercell")

@@ -3,9 +3,15 @@
 
 The below example code and testing interface has been provided.
 
-### To Do:
-- Video walkthrough
-- Link to sample app on Apple App Store
+### Installation
+
+To generate the needed dependencies, run the following from your project directory:
+
+```bash
+sudo gem install cocoapods # install CocoaPods library (ignore if already installed)
+pod install # install CocoaPods specific to this project
+pod update # update CocoaPods specific to this project
+```
 
 ## PayHost
 

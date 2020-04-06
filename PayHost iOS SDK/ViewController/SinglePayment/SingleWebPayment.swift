@@ -7,7 +7,7 @@
 //  Developer: App Inlet (Pty) Ltd
 //  Developer URI: https://www.appinlet.com/
 //
-//  Copyright: © 2018 PayGate (Pty) Ltd.
+//  Copyright: © 2020 PayGate (Pty) Ltd.
 //  License: GNU General Public License v3.0
 //  License URI: http://www.gnu.org/licenses/gpl-3.0.html
 //
@@ -37,6 +37,20 @@ class SingleWebPayment: UIViewController,XMLParserDelegate,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 12.0, *) {
+            switch UIScreen.main.traitCollection.userInterfaceStyle {
+            case .dark: // put your dark mode code here
+                self.view.backgroundColor = .black
+            case .light:
+                self.view.backgroundColor = .white
+                
+                
+            case .unspecified: break
+            @unknown default:
+                break
+            }
+        }
+        
         Response_string.delegate = self
         setMenuButton()
         setTextViewShdow(Response_string)
@@ -127,8 +141,6 @@ class SingleWebPayment: UIViewController,XMLParserDelegate,UITextViewDelegate {
             let makeObject = TokenpaymentRequest(soapvalue:ConcateStr)
             print(makeObject.soapvalue)
             return makeObject.soapvalue
-            
-            
         }
         catch{
             
@@ -240,7 +252,7 @@ class SingleWebPayment: UIViewController,XMLParserDelegate,UITextViewDelegate {
         DispatchQueue.main.sync {
             
             do{
-                var xmlDictionary = try? XMLReader.dictionary(forXMLString: Response)
+                let xmlDictionary = try? XMLReader.dictionary(forXMLString: Response)
                 
                 let dic1 : NSDictionary = xmlDictionary!["SOAP-ENV:Envelope"] as! NSDictionary
                 let dic2 : NSDictionary = dic1["SOAP-ENV:Body"] as! NSDictionary
@@ -310,7 +322,6 @@ class SingleWebPayment: UIViewController,XMLParserDelegate,UITextViewDelegate {
                         
                         cheakSumid = cheakSum["text"] as! String
                         
-                        
                         var PassToDic = [String:String]()
                         PassToDic["url"] = redirectUrl
                         PassToDic["ref_id"] = ReferenceId
@@ -325,11 +336,6 @@ class SingleWebPayment: UIViewController,XMLParserDelegate,UITextViewDelegate {
                         
                     }
                 }
-                
-                
-            }
-            catch{
-                
             }
         }
         

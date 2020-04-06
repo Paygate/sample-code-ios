@@ -7,7 +7,7 @@
 //  Developer: App Inlet (Pty) Ltd
 //  Developer URI: https://www.appinlet.com/
 //
-//  Copyright: © 2018 PayGate (Pty) Ltd.
+//  Copyright: © 2020 PayGate (Pty) Ltd.
 //  License: GNU General Public License v3.0
 //  License URI: http://www.gnu.org/licenses/gpl-3.0.html
 //
@@ -26,6 +26,20 @@ class CardvaultBase: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 12.0, *) {
+            switch UIScreen.main.traitCollection.userInterfaceStyle {
+            case .dark: // put your dark mode code here
+                self.view.backgroundColor = .black
+            case .light:
+                self.view.backgroundColor = .white
+                
+                
+            case .unspecified: break
+            @unknown default:
+                break
+            }
+        }
+        
         self.setUpview()
     }
     
@@ -33,6 +47,8 @@ class CardvaultBase: UIViewController {
     
     func setUpview() {
         self.title = "Card Vault"
+        
+        
         setMenuButton()
         setTextViewShdow(requestTextvw)
         setTextViewShdow(responseTextvw)
@@ -61,8 +77,6 @@ class CardvaultBase: UIViewController {
         
         self.requestTextvw.text = qucard.soapvalue
         WebServiceHandler().PostRequestWithXml(parms: qucard.soapvalue, Url: APIConstants.CardVault, headers: APIConstants.headers, Success: {(responseObject,ResponseString) -> () in
-            
-            
             if(ResponseString.contains("Completed")){
                 DispatchQueue.main.sync {
                     self.responseTextvw.text = ResponseString
