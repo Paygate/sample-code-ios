@@ -1,5 +1,5 @@
 # sample-code-ios
-## PayGate Sample Code iOS BETA
+## PayGate Sample Code iOS
 
 The below example code and testing interface has been provided.
 
